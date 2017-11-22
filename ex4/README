@@ -1,0 +1,70 @@
+israelab12, omerom88
+israel abudi (305181414), omer rom (301544383)
+EX: 4
+
+FILES:
+CachingFileSystem.cpp			implement for the given file
+Block.cpp				implement for it's header
+Block.h					represent a block of the cache
+Cache.cpp				implement for it's header
+Cache.h					represent the whole cache data base
+Makefile				makefile for the exercise
+README					this file
+
+
+REMARKS:
+
+Cache.h:
+We  choose to store on the cache both map and list of the cache blocks.
+The map is used to have easier way to locate the relevant blocks by the file path.
+The list just store all the blocks.
+Both of them are sorted following our LFU algorithm.
+
+Additional functions on CachingFileSystem:
+get_real_path - function that get the real path of the given path
+log_msg - function that print given messege to the log file
+log_ioctl - function that help use with the caching_ioctl, and doing the relevant 
+work but for certion block.
+typedef struct fs_context - it implement to store "global" data that we want to 
+use and related to our file system as the logfile, the cache of it, the rootdir 
+path and so on.
+
+ANSWERS:
+
+1. No. in case the cache is very big, not all of it will save in the RAM-
+it can be save in the disc. The response will be the same as accessing the disk,
+or even less efficient then just read it directly from the disc. (because we 
+will need to load it from the disk to the cache, and then read it).
+
+2. Sorted List:
+Better - if items are removed frequently from cache and items in the cache 
+aren't frequently used. 
+Worse - if items in the cache are frequently used.
+Array: 
+Better - if items are rarely removed from the cache and the items in the 
+cache are used frequently.
+Worse - if the cache fills quickly and items are removed frequently.
+
+3. When we use the LRU algorithm, we need the help of the OS, in order to make 
+the algorithm work. But, when using paging, we are using the hardware more often, 
+so when we try to swap pages in the memory, the execution of the algorithm will 
+be less efficient when we are mixing the two.
+
+4. We assume the size of the cache is n for LRU and LFU.
+LRU is better than LFU:
+If a block was used frequently in a very short period, but never used again after, 
+and n+1 blocks used afterwards. The LFU would keep that block in the cache even after 
+stopping using it, LRU won't.
+LFU is better than LRU:
+If there's n+1 blocks that are used at the same frequency and an additional block 
+which is used few times more frequently. LFU will recognize that this block is 
+important, while LRU won't.
+None of them:
+If there's n+1 blocks that are accessed one after another in exactly the same order 
+each time, both LFU and LRU won't be able to cache relevant data.
+
+5. The ideal block-size in this exercise is 4096, because the blocks size is 4096 bytes.
+If we want to use smaller block-size and we want to deal with small files, 
+it will be alright, But when we want to deal with large files, we'll need to use 
+multiple cache blocks for each actualy block.
+If will have bigger block-size - the cache blocks will have unused space.    

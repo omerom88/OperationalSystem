@@ -1,0 +1,32 @@
+omerom88
+omer rom (301544383)
+EX: 2
+
+FILES:
+Thread.c -- a file with some code
+Thread.h -- a file with some headers
+ReadyQueue.c -- a file with some code
+ReadyQueue.h -- a file with some headers
+uthreads.c -- a file with some code
+uthreads.h -- a file with some headers
+
+REMARKS:
+In the file Thread.h i didn't know what to do with the fields "env" and "translate_address",
+if to put them in public members or in private. I looked all over the class presentations,
+but i couldn't find an answer. So eventialy i decided to put them in the public members 
+group, hope its not a mistake.
+
+ANSWERS:
+
+	question 1 - 
+RR pros:	- insure that all threads will run.
+		- every thread gets same opportunity to run - doesn't metter who's more importent.
+RR cons:	- can be that very importent threads will'nt get the chance to run.
+PQ pros:	- insure that the most importent threads will run first.
+PQ cons:	- can be that not all threads will run.
+
+	question 2 - 
+One exemple i can think about its the event of read and write. When file need to be read, 
+and need to be blocked while some user write on him.
+
+  
